@@ -1,0 +1,29 @@
+version: '2.1'
+
+services:
+
+  wordpress:
+    image: wordpress
+    restart: always
+    ports:
+      - 86:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: Jayavel
+      WORDPRESS_DB_PASSWORD: XXXXXXXXX
+      WORDPRESS_DB_NAME: WordpressDB
+    volumes:
+      - /srv/dev-disk-by-uuid-b950fec5-cc21-4e7c-bd24-34263cbd533e/Wordpress/Config:/var/www/html
+    links:
+      - db:db
+
+  db:
+    image: tobi312/rpi-mariadb:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: WordpressDB
+      MYSQL_USER: Jayavel
+      MYSQL_PASSWORD: XXXXXXXXXXX
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - /srv/dev-disk-by-uuid-b950fec5-cc21-4e7c-bd24-34263cbd533e/Wordpress/Databases:/var/lib/mysql
