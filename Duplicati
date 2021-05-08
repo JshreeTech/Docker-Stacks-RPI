@@ -1,0 +1,19 @@
+---
+version: "2.1"
+services:
+  duplicati:
+    image: linuxserver/duplicati
+    container_name: duplicati
+    environment:
+      - PUID=998
+      - PGID=100
+      - TZ=Asia/Kolkata
+    volumes:
+      - /srv/dev-disk-by-uuid-fb831de9-d8d9-4df7-bb1f-c61b6d0f86f9/Config/Duplicati:/config #Config Files
+      - /srv/dev-disk-by-uuid-fb831de9-d8d9-4df7-bb1f-c61b6d0f86f9/Backups:/BackupStorage #Backup Storage
+      - /srv/dev-disk-by-uuid-fb831de9-d8d9-4df7-bb1f-c61b6d0f86f9/Config:/ConfigBackup #What to Backup
+      - /srv/dev-disk-by-uuid-fb831de9-d8d9-4df7-bb1f-c61b6d0f86f9/Databases:/DatabaseBackup #What to Backup
+      - /srv/dev-disk-by-uuid-b950fec5-cc21-4e7c-bd24-34263cbd533e/Wordpress:/WordpressBackup #What to Backup
+    ports:
+      - 83:8200
+    restart: unless-stopped
