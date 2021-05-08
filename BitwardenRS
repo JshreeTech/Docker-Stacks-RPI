@@ -1,0 +1,11 @@
+---
+version: "2"
+services:
+  bitwardenrs:
+    image: bitwardenrs/server:latest
+    container_name: bitwardenrs
+    volumes:
+      - /srv/dev-disk-by-xxxxxx/Config/BitWardenRS:/data/
+    ports:
+      - 87:80
+    restart: unless-stopped
