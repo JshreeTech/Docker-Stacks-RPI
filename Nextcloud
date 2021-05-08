@@ -1,0 +1,24 @@
+version: '2'
+
+services:
+  db:
+    image: tobi312/rpi-mariadb:latest
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    restart: always
+    volumes:
+      - /srv/dev-disk-by-uuid-fb831de9-d8d9-4df7-bb1f-c61b6d0f86f9/Databases/NextCloud:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=XXXXXXXXXX
+      - MYSQL_PASSWORD=XXXXXXXXXX
+      - MYSQL_DATABASE=NextcloudDB
+      - MYSQL_USER=Jayavel
+
+  app:
+    image: nextcloud
+    ports:
+      - 84:80
+    links:
+      - db
+    volumes:
+      - /srv/dev-disk-by-uuid-fb831de9-d8d9-4df7-bb1f-c61b6d0f86f9/Nextcloud:/var/www/html
+    restart: always
